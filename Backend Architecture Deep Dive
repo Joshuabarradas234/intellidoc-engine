@@ -2,20 +2,19 @@
 
 ## Backend Architecture Overview
 
-The backend is built using a **serverless architecture on AWS** — primarily **AWS Lambda**, **Amazon API Gateway**, **Amazon DynamoDB**, **Amazon Textract**, and **Amazon OpenSearch Service**. It processes scanned receipts, extracts structured data, stores them in DynamoDB, and indexes them for search in OpenSearch.
+The backend is built using a **serverless architecture on AWS** — primarily **AWS Lambda**, **Amazon API Gateway**, **Amazon Textract**, **Amazon DynamoDB**, and **Amazon OpenSearch Service**.
 
 All infrastructure is defined and deployed via **Terraform**, ensuring consistency across environments and easy reproducibility.
 
 ---
 
-### Key AWS Components
+## Key AWS Components
 
 - **Amazon API Gateway** — Exposes RESTful API endpoints, integrates directly with Lambda.
 - **AWS Lambda** — Executes backend logic for ingestion, retrieval, and search.
 - **Amazon Textract** — Performs OCR (AnalyzeExpense API) to extract vendor, date, totals, and line items.
 - **Amazon DynamoDB** — Stores structured receipt data.
 - **Amazon OpenSearch Service** — Indexes receipt content for full-text search.
-- **AWS IAM** — Enforces least privilege permissions.
 - **Amazon S3** *(optional)* — Can store original receipt images.
 - **AWS X-Ray** — Traces requests across components.
 
@@ -23,13 +22,15 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 
 ## Lambda Functions and Responsibilities
 
-| Function                | Purpose |
-|-------------------------|---------|
+| Function | Purpose |
+|----------|---------|
 | **PostReceiptFunction** | Handles `POST /receipt`, calls Textract, stores data in DynamoDB, indexes in OpenSearch. |
-| **GetReceiptFunction**  | Handles `GET /receipt/{id}`, fetches details from DynamoDB. |
+| **GetReceiptFunction** | Handles `GET /receipt/{id}`, fetches details from DynamoDB. |
 | **SearchReceiptsFunction** | Handles `GET /receipts?query=...`, searches OpenSearch, fetches matching receipts from DynamoDB. |
 
-**Terraform snippet for PostReceiptFunction:**
+---
+
+### Terraform snippet for `PostReceiptFunction`
 ```hcl
 resource "aws_lambda_function" "post_receipt" {
   function_name = "PostReceiptFunction"
@@ -197,3 +198,4 @@ Additional Notes
 	•	Error Handling: Textract errors, OpenSearch timeouts, and DynamoDB exceptions are logged in CloudWatch.
 	•	Terraform Deployment: All backend resources are provisioned via Terraform in the infra/ directory.
 	•	Monitoring: AWS X-Ray and CloudWatch Logs are enabled for all Lambdas.
+
