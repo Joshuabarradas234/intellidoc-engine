@@ -2,50 +2,76 @@
 
 **Purpose:** This section demonstrates the system’s observability through comprehensive logging, custom metrics, automated alarms, and distributed tracing. By leveraging Amazon CloudWatch and AWS X-Ray, we can monitor application health in real time and quickly pinpoint any issues. The following subsections provide evidence of these capabilities (logs, metrics, alarms, and traces) and explain their operational benefits.
 
+---
+
 ## CloudWatch Logs Insights Query Example & Results
 
-&#x20;*CloudWatch Logs Insights query results showing log events where "Inserted successfully" appears.* In our system, all key operations (such as inserting a record into the database) are logged. The screenshot above shows an example CloudWatch Logs Insights query that filters the Lambda function’s logs for the phrase **“Inserted successfully”**, which is logged upon a successful insert. The query results confirm that insert operations are completing as expected, with timestamps and log messages indicating success events. By using **CloudWatch Logs Insights**, we can interactively search and analyze log data, which **helps us efficiently diagnose problems and verify system behavior**. For instance, if a data ingestion fails or an anomaly occurs, engineers can quickly filter logs for error keywords or transaction IDs to find the root cause. This on-demand querying of logs greatly speeds up troubleshooting and provides confidence that the application is functioning correctly when expected log messages (like successful inserts) are present.
+![CloudWatch Logs Insights query filtering for "Inserted successfully"](path/to/cloudwatch-logs-insights.png)  
+*Figure 1: Query results showing successful insert log events.*
+
+In our system, all key operations (such as inserting a record into the database) are logged. The screenshot above shows a CloudWatch Logs Insights query that filters the Lambda function’s logs for the phrase **“Inserted successfully”**, which is logged upon a successful insert. The query results confirm that insert operations are completing as expected, with timestamps and log messages indicating success events.
+
+Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log data to **diagnose problems** and **verify system behavior**. If a data ingestion fails or an anomaly occurs, targeted log queries help find the root cause in seconds.
+
+---
 
 ## Custom CloudWatch Metrics (InsertSuccess & InsertError)
 
-In addition to raw logs, the system publishes **custom CloudWatch metrics** to quantitatively track its operations. Two critical metrics are defined: **InsertSuccess** (count of successful insert operations) and **InsertError** (count of failed insert attempts). These metrics are emitted by the Lambda function at runtime – for example, after inserting a record into DynamoDB, the function increments the InsertSuccess metric, and if an exception occurs during insertion, it increments InsertError. Custom metrics allow us to monitor application-specific events that AWS does not track by default. This provides deeper insight into the health of our workflow beyond standard metrics.
+![Custom CloudWatch metrics dashboard showing InsertSuccess & InsertError](path/to/cloudwatch-custom-metrics.png)  
+*Figure 2: Custom metrics tracking successful vs failed inserts.*
 
-By visualizing these metrics in CloudWatch, we can observe trends like how many records are processed over time and how often errors occur. More importantly, **we set up CloudWatch Alarms on these custom metrics** (detailed next) to automatically alert us to abnormal conditions. CloudWatch custom metrics enable tracking of key business/system events and setting alerts on them. In our case, they serve as a heartbeat for the data ingestion pipeline – every successful insert and error is counted, so any drop in successes or spike in errors is immediately quantifiable.
+Two critical custom metrics are defined:  
+- **InsertSuccess** – Count of successful insert operations.  
+- **InsertError** – Count of failed insert attempts.  
+
+These metrics are emitted by the Lambda function at runtime. They provide quantitative insight into the system’s health beyond default AWS metrics.  
+
+By visualizing these metrics, we can see trends over time, spot spikes in errors, and detect sudden drops in throughput. The next section covers how alarms are configured on these metrics.
+
+---
 
 ## CloudWatch Alarms (Thresholds & Descriptions)
 
-To ensure we are promptly notified of issues, we created **CloudWatch Alarms** on the above metrics: **InsertErrorAlarm** and **InsertSuccessAlarm**. These alarms are configured with specific thresholds and descriptions reflecting our operational requirements:
+![InsertErrorAlarm details page](path/to/insert-error-alarm.png)  
+*Figure 3: Alarm for any insert failure (≥ 1 error in 5 min).*
 
-* **InsertErrorAlarm:** Triggers an alarm whenever the InsertError metric indicates an insertion failure. We configured this alarm with a very low threshold (e.g. ≥ 1 error within a 5-minute period, with one evaluation period) so that *any* database insert error will switch the alarm to ALARM state. The alarm’s details page (see **InsertErrorAlarm** configuration) shows the threshold condition (“**IF InsertError ≥ 1 for 5 minutes**”) and links to an SNS notification for alerting the team. This proactive alert means that if even a single insert operation fails (due to, say, a validation or DB outage), the team is notified immediately to investigate.
+![InsertSuccessAlarm details page](path/to/insert-success-alarm.png)  
+*Figure 4: Alarm for pipeline inactivity (no successes in 15 min).*
 
-* **InsertSuccessAlarm:** Triggers if the system’s successful insert throughput falls below an acceptable level. Specifically, we set this alarm to catch **lack of activity** – for example, “**IF InsertSuccess = 0 for a continuous 15 minutes (3 consecutive 5-min periods)**” then ALARM. This effectively notifies us if the ingestion pipeline stops processing items (no successes in a given timeframe). The alarm description notes that it’s a downtime detector for the pipeline. In normal operation, the Lambda should be inserting records regularly; if it stops (without successes), this alarm will go off, indicating a potential upstream issue (like no new data or a stuck process). By using a “lower threshold” alarm on a custom metric, we ensure we’re alerted to stalls, not just errors.
+![Alarm list page](path/to/alarm-list.png)  
+*Figure 5: Dashboard view of all active alarms.*
 
-On the CloudWatch **Alarms dashboard**, both alarms are listed with their current state (OK/ALARM/Insufficient data), the configured threshold conditions, and timestamps of state changes. For example, in the **Alarm list page** screenshot, we can see *InsertErrorAlarm* and *InsertSuccessAlarm* entries – under normal conditions they remain in **OK** state (often shown in green), and would transition to **ALARM** (red) if their conditions are met. The alarms are also configured with actions: when triggered, they send an Amazon SNS notification to our Ops email/Slack, ensuring the team is immediately aware. This kind of custom alarm on application-specific metrics exemplifies how CloudWatch enables **proactive monitoring** beyond default AWS metrics. It helps us stay ahead of issues – for instance, getting notified if errors spike or if throughput drops, rather than finding out from users or missing data.
+We created **InsertErrorAlarm** and **InsertSuccessAlarm** with thresholds designed to detect:  
+- **Any failure** – Triggers if ≥ 1 error in 5 minutes.  
+- **Pipeline stalls** – Triggers if 0 successes in 15 minutes.  
+
+These alarms send Amazon SNS notifications to our Ops channels for immediate action. This proactive setup ensures we catch issues before they cause major disruption.
+
+---
 
 ## AWS X-Ray Tracing (Traces List & Service Map)
 
-While logs and metrics/alarms help monitor outcomes and quantities, **AWS X-Ray tracing** provides insight into the performance and flow of requests through our system. We have enabled X-Ray for our Lambda functions (and integrated services), which records detailed trace data for each request.
+![X-Ray traces list view](path/to/xray-traces-list.png)  
+*Figure 6: List of recent request traces.*
 
-&#x20;*X-Ray console – Traces list view showing recent trace records.* The above screenshot shows the **X-Ray Traces** list in the CloudWatch console. Each entry in this list represents a single end-to-end trace of a user request through the system. For our application, a trace typically starts at the API Gateway (or client), goes through the Lambda function, and involves calls to downstream services like DynamoDB or Textract. The trace list view displays each trace’s ID, timestamp, duration, and status (e.g., 200 OK or error). In the example shown, you can see a trace with its overall duration in milliseconds and an HTTP response code. By clicking on a trace, we can drill into the **trace details**, which show the timeline of segments (e.g., API Gateway -> Lambda -> DynamoDB) and where time was spent. This is invaluable for debugging and performance tuning – for instance, if a particular request was slow, X-Ray would show which segment (perhaps an external API call or the DB write) caused the delay, or if an error occurred, which component threw it.
+![X-Ray service map](path/to/xray-service-map.png)  
+*Figure 7: Visual architecture and health overview.*
 
-&#x20;*X-Ray Service Map illustrating the architecture of the application and health of each component.* X-Ray also generates a **service map**, a visual graph of the system’s components and their interactions. The service map above (from a sample trace) shows how requests flow through various services (nodes) and the connections between them. In our case, the map would include nodes for the *client or API Gateway*, the *Lambda function*, and downstream services like *Amazon DynamoDB* (for data storage) and *Amazon Textract* (for OCR, if used in the pipeline). Each node on the map is color-coded by health – for example, green indicates successful calls, while red or yellow would indicate errors or throttling if they occurred. You can also toggle to display metrics on the nodes (average latency, requests per minute, etc., as shown in the screenshot). The X-Ray service map provides a high-level overview of the application’s architecture in real time. If an issue arises, one glance at the map can show which component is failing or slow (it would be highlighted with a colored border or icon). This complements the detailed trace list: the map is great for spotting systemic issues (e.g., a database node turning red due to errors across many traces), while the trace view is great for deep-diving into a single request.
+We enabled **AWS X-Ray** for Lambda and downstream services to capture distributed traces.  
+- **Traces list** – Shows per-request latency, status, and detailed execution timeline.  
+- **Service map** – Displays real-time architecture with health indicators for each component.
 
-By using AWS X-Ray, we effectively have **distributed tracing** for the application. As AWS describes, X-Ray *“helps you analyze and debug production, distributed applications”* and provides that *“neat ‘service map’ to troubleshoot and understand the path of a request, the response codes for each microservice, average response time, etc.”*. In practice, this means faster root-cause analysis: if a user reports a slow or failed operation, we can check X-Ray traces to see where it went wrong (for example, an external API timeout or a misconfigured resource).
+X-Ray helps identify slow components, pinpoint failures, and validate that all services are interacting as expected.
+
+---
 
 ## Operational Benefits of Observability
 
-Implementing the above logging, monitoring, and tracing capabilities yields significant operational benefits:
+Implementing logging, metrics, alarms, and tracing delivers:
 
-* **Fast Issue Detection:** The CloudWatch alarms on custom metrics ensure that we are *immediately alerted* to critical anomalies. If an insert fails, the InsertErrorAlarm will page us in real time. If the pipeline stalls (no inserts), the InsertSuccessAlarm notifies us before the issue grows. This proactive alerting minimizes downtime and prevents data loss, as we can react to problems as soon as they occur.
+- **Fast Issue Detection** – Immediate SNS alerts for anomalies.  
+- **Efficient Troubleshooting** – Targeted log queries and trace analysis.  
+- **Quantitative Monitoring** – Track throughput and error rates over time.  
+- **Holistic Visibility** – Real-time architecture health via X-Ray service map.  
+- **Improved Reliability** – Reduced downtime and faster MTTR.
 
-* **Efficient Troubleshooting:** With CloudWatch Logs Insights, engineers can quickly search through logs to find relevant messages (e.g., error stack traces or confirmation of processed records). Instead of manually sifting through log streams, a targeted query (as demonstrated with `"Inserted successfully"` search) pinpoints the information needed to diagnose an issue. This significantly reduces Mean Time to Resolution (MTTR) when incidents happen.
-
-* **Quantitative Monitoring:** The custom metrics provide a quantitative view of system performance. We can track rates of successful operations versus errors over time, spot trends, and correlate with deployments or configuration changes. For example, a sudden drop in the InsertSuccess metric or rise in InsertError metric would indicate a regression or external issue. These metrics can also feed into dashboards for ongoing awareness of system throughput and error rates.
-
-* **Holistic Visibility with Tracing:** AWS X-Ray adds another dimension by showing the flow of each request across services. This is crucial in a microservices or distributed architecture – it helps answer **where** and **why** a particular request failed or slowed down. The service map and trace details make it easier to localize faults (e.g., a specific dependency causing errors) and to verify that all components are interacting as expected. In performance tuning, we can identify the longest latency component in a trace and focus our optimization there.
-
-* **Improved Reliability and Confidence:** Together, these observability tools create a robust monitoring solution that gives us confidence in the system’s operation. We know that if anything goes wrong, we’ll see it either in an alarm, a spike in error metrics, or a red node on the service map – and we have the logs and traces to investigate immediately. This reduces the risk of silent failures. Moreover, it provides stakeholders (and recruiters) evidence that the system is production-ready with proper **operational oversight** in place. We’re not running a “black box” – we have full visibility into system health and can demonstrate the use of industry-standard AWS monitoring services to maintain it.
-
-In summary, the **observability** (logs, metrics, alarms, tracing) implemented in this project ensures that the system is not only functionally robust but also operationally maintainable. It adheres to best practices of cloud application management – leveraging CloudWatch for monitoring and AWS X-Ray for tracing – to achieve early detection of issues, rapid troubleshooting, and overall resilience of the application. This level of monitoring and logging not only helps in day-to-day operations but also showcases the engineering rigor put into the solution, which is a strong indicator of a mature and reliable system.
-
-**Sources:** The above content references Amazon CloudWatch and X-Ray documentation and best-practices blogs for accuracy on how these services function and their benefits. Specifically, AWS and community sources discuss the use of CloudWatch Logs Insights for querying logs, the value of custom metrics and alarms for application-specific monitoring, and the purpose of AWS X-Ray for distributed tracing and service maps. Each of these tools plays a crucial role in the overall observability strategy of the system, as evidenced by the provided examples and explanations.
