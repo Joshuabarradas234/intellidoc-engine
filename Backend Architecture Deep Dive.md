@@ -31,6 +31,7 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 ---
 
 ### Terraform snippet for `PostReceiptFunction`
+
 ```hcl
 resource "aws_lambda_function" "post_receipt" {
   function_name = "PostReceiptFunction"
@@ -48,33 +49,32 @@ resource "aws_lambda_function" "post_receipt" {
     }
   }
 }
-
-📸 Screenshot 1: AWS Lambda list view
-📸 Screenshot 2: Lambda environment variables panel
-
-⸻
+📸 Screenshot 1 — AWS Lambda list view
 
 Environment Variables
-
 Example for PostReceiptFunction:
 
+ini
+Copy
+Edit
 TABLE_NAME="ReceiptLines"
 OPENSEARCH_DOMAIN="receipts-search-domain"
 OPENSEARCH_INDEX="receipts-index"
 S3_BUCKET="receipt-uploads-bucket"
+TABLE_NAME — DynamoDB table name
 
-	•	TABLE_NAME — DynamoDB table name
-	•	OPENSEARCH_DOMAIN / OPENSEARCH_INDEX — OpenSearch endpoint and index name
-	•	S3_BUCKET — Optional bucket for storing original images
+OPENSEARCH_DOMAIN / OPENSEARCH_INDEX — OpenSearch endpoint and index name
 
-📸 Screenshot 3: Environment variables in AWS Lambda console
+S3_BUCKET — Optional bucket for storing original images
 
-⸻
+📸 Screenshot 2 — Lambda environment variables panel
 
 IAM Role & Policies
-
 The Lambda execution role grants only the permissions needed:
 
+json
+Copy
+Edit
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -107,30 +107,27 @@ The Lambda execution role grants only the permissions needed:
     }
   ]
 }
+📸 Screenshot 3 — IAM role → Permissions tab
 
-📸 Screenshot 4: IAM role → Permissions tab
-📸 Screenshot 5: IAM policy JSON file from infra/iam-policies/
-
-⸻
+📸 Screenshot 4 — IAM policy JSON file
 
 API Gateway Routes
-
 Method & Path	Description
-POST /receipt	Upload and process a new receipt.
-GET /receipt/{id}	Retrieve details of a specific receipt.
-GET /receipts	Search or list receipts, with optional ?query= parameter.
+POST /receipt	Upload and process a new receipt
+GET /receipt/{id}	Retrieve details of a specific receipt
+GET /receipts	Search or list receipts, with optional ?query= parameter
 
-📸 Screenshot 6: API Gateway routes list
-
-⸻
+📸 Screenshot 5 — API Gateway routes list
 
 DynamoDB Table Structure
-
 Table Name: ReceiptLines
 Primary Key: receipt_id (String)
 
 Example item:
 
+json
+Copy
+Edit
 {
   "receipt_id": "123ABC456",
   "vendor": "Coffee Shop LLC",
@@ -142,15 +139,15 @@ Example item:
   ],
   "s3_path": "s3://receipt-uploads-bucket/2025-08-13/receipt123.jpg"
 }
+📸 Screenshot 6 — DynamoDB item view (Form view)
 
-📸 Screenshot 7: DynamoDB item view in AWS console
-
-⸻
+📸 Screenshot 7 — DynamoDB item view (JSON view)
 
 Backend Workflow
-
 Receipt Ingestion (POST /receipt)
-
+mermaid
+Copy
+Edit
 sequenceDiagram
     autonumber
     participant Client
@@ -168,12 +165,10 @@ sequenceDiagram
     Lambda->>OpenSearch: Index for search
     Lambda-->>APIGW: Return success
     APIGW-->>Client: 200 OK
-
-
-⸻
-
 Receipt Search (GET /receipts?query=…)
-
+mermaid
+Copy
+Edit
 sequenceDiagram
     autonumber
     participant Client
@@ -190,12 +185,3 @@ sequenceDiagram
     DynamoDB-->>LambdaSearch: Receipt data
     LambdaSearch-->>APIGW: Return results
     APIGW-->>Client: 200 OK
-
-
-⸻
-
-Additional Notes
-	•	Error Handling: Textract errors, OpenSearch timeouts, and DynamoDB exceptions are logged in CloudWatch.
-	•	Terraform Deployment: All backend resources are provisioned via Terraform in the infra/ directory.
-	•	Monitoring: AWS X-Ray and CloudWatch Logs are enabled for all Lambdas.
-
