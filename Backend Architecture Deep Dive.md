@@ -50,7 +50,7 @@ resource "aws_lambda_function" "post_receipt" {
   }
 }
 📸 Screenshot 1 — AWS Lambda list view
-
+![Lambda Functions List](lambda-functions-list.png)
 Environment Variables
 Example for PostReceiptFunction:
 
@@ -68,7 +68,7 @@ OPENSEARCH_DOMAIN / OPENSEARCH_INDEX — OpenSearch endpoint and index name
 S3_BUCKET — Optional bucket for storing original images
 
 📸 Screenshot 2 — Lambda environment variables panel
-
+![Lambda Environment Variables](lambda-env-vars.pn.png)
 IAM Role & Policies
 The Lambda execution role grants only the permissions needed:
 
@@ -108,9 +108,9 @@ Edit
   ]
 }
 📸 Screenshot 3 — IAM role → Permissions tab
-
+![IAM Role Permissions](iam-role-permissions.png)
 📸 Screenshot 4 — IAM policy JSON file
-
+![IAM Policy JSON](iam-policy-json.png)
 API Gateway Routes
 Method & Path	Description
 POST /receipt	Upload and process a new receipt
@@ -118,7 +118,7 @@ GET /receipt/{id}	Retrieve details of a specific receipt
 GET /receipts	Search or list receipts, with optional ?query= parameter
 
 📸 Screenshot 5 — API Gateway routes list
-
+![API Gateway Methods](api-gateway-methods.png)
 DynamoDB Table Structure
 Table Name: ReceiptLines
 Primary Key: receipt_id (String)
@@ -140,9 +140,9 @@ Edit
   "s3_path": "s3://receipt-uploads-bucket/2025-08-13/receipt123.jpg"
 }
 📸 Screenshot 6 — DynamoDB item view (Form view)
-
+![DynamoDB Item Form View](dynamodb-item-form.png)
 📸 Screenshot 7 — DynamoDB item view (JSON view)
-
+![DynamoDB Item JSON View](dynamodb-item-json.png)
 Backend Workflow
 Receipt Ingestion (POST /receipt)
 mermaid
