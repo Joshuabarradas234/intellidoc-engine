@@ -29,120 +29,14 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 | **SearchReceiptsFunction** | Handles `GET /receipts?query=...`, searches OpenSearch, fetches matching receipts from DynamoDB. |
 
 ---
-
-### Terraform snippet for `PostReceiptFunction`
-
-```hcl
-resource "aws_lambda_function" "post_receipt" {
-  function_name = "PostReceiptFunction"
-  runtime       = "python3.9"
-  handler       = "handlers/post_receipt.handler"
-  memory_size   = 512
-  timeout       = 30
-  role          = aws_iam_role.lambda_exec.arn
-  filename      = "lambda_functions.zip"
-  environment {
-    variables = {
-      TABLE_NAME          = "ReceiptLines"
-      OPENSEARCH_ENDPOINT = "https://my-receipts-domainID.eu-west-1.es.amazonaws.com"
-      OPENSEARCH_INDEX    = "receipts-index"
-    }
-  }
-}
-📸 Screenshot 1 — AWS Lambda list view
 ![Lambda Functions List](lambda-functions-list.png)
-Environment Variables
-Example for PostReceiptFunction:
-
-ini
-Copy
-Edit
-TABLE_NAME="ReceiptLines"
-OPENSEARCH_DOMAIN="receipts-search-domain"
-OPENSEARCH_INDEX="receipts-index"
-S3_BUCKET="receipt-uploads-bucket"
-TABLE_NAME — DynamoDB table name
-
-OPENSEARCH_DOMAIN / OPENSEARCH_INDEX — OpenSearch endpoint and index name
-
-S3_BUCKET — Optional bucket for storing original images
-
-📸 Screenshot 2 — Lambda environment variables panel
 ![Lambda Environment Variables](lambda-env-vars.pn.png)
-IAM Role & Policies
-The Lambda execution role grants only the permissions needed:
-
-json
-Copy
-Edit
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:PutItem",
-        "dynamodb:GetItem",
-        "dynamodb:UpdateItem",
-        "dynamodb:Scan",
-        "dynamodb:Query"
-      ],
-      "Resource": "arn:aws:dynamodb:<AWS_REGION>:<ACCOUNT_ID>:table/ReceiptLines"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "textract:AnalyzeExpense",
-        "textract:DetectDocumentText"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "es:ESHttpPost",
-        "es:ESHttpGet"
-      ],
-      "Resource": "arn:aws:es:<AWS_REGION>:<ACCOUNT_ID>:domain/receipts-search-domain/*"
-    }
-  ]
-}
-📸 Screenshot 3 — IAM role → Permissions tab
 ![IAM Role Permissions](iam-role-permissions.png)
-📸 Screenshot 4 — IAM policy JSON file
 ![IAM Policy JSON](iam-policy-json.png)
-API Gateway Routes
-Method & Path	Description
-POST /receipt	Upload and process a new receipt
-GET /receipt/{id}	Retrieve details of a specific receipt
-GET /receipts	Search or list receipts, with optional ?query= parameter
-
-📸 Screenshot 5 — API Gateway routes list
 ![API Gateway Methods](api-gateway-methods.png)
-DynamoDB Table Structure
-Table Name: ReceiptLines
-Primary Key: receipt_id (String)
-
-Example item:
-
-json
-Copy
-Edit
-{
-  "receipt_id": "123ABC456",
-  "vendor": "Coffee Shop LLC",
-  "date": "2025-08-13T09:30:00Z",
-  "total": 23.45,
-  "items": [
-    { "description": "Latte", "quantity": 2, "price": 4.50 },
-    { "description": "Blueberry Muffin", "quantity": 1, "price": 3.95 }
-  ],
-  "s3_path": "s3://receipt-uploads-bucket/2025-08-13/receipt123.jpg"
-}
-📸 Screenshot 6 — DynamoDB item view (Form view)
 ![DynamoDB Item Form View](dynamodb-item-form.png)
-📸 Screenshot 7 — DynamoDB item view (JSON view)
 ![DynamoDB Item JSON View](dynamodb-item-json.png)
+
 Backend Workflow
 Receipt Ingestion (POST /receipt)
 mermaid
