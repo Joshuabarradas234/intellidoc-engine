@@ -29,7 +29,10 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 | **SearchReceiptsFunction** | Handles `GET /receipts?query=...`, searches OpenSearch, fetches matching receipts from DynamoDB. |
 
 ---
+1. AWS Lambda – Functions List
+Shows all deployed Lambda functions used in the project.
 ![Lambda Functions List](lambda-functions-list.png)
+
 ![Lambda Environment Variables](lambda-env-vars.pn.png)
 ![IAM Role Permissions](iam-role-permissions.png)
 ![IAM Policy JSON](iam-policy-json.png)
