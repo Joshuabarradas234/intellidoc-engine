@@ -17,6 +17,8 @@ The upload form in the React application lets users provide the necessary receip
 🖼️ **Screenshot 1: React upload form UI** – *The upload form in the IntelliDoc React frontend, showing the file picker, text area for receipt details, and the submit button.*
 
 When the user clicks the **Submit** button, the form’s data is packaged and sent to the backend. The React app typically disables the form during upload and might show a loading indicator (to prevent multiple submissions) while waiting for the server’s response.
+### React Upload Form
+![React Upload Form](frontendUpload%20Form.png)
 
 ---
 
@@ -53,7 +55,8 @@ In this snippet, the frontend appends the chosen file and text input into a Form
 🖼️ **Screenshot 2: Browser DevTools – POST /receipt** – *Developer Tools Network panel showing the POST request to the `/receipt` endpoint. The payload includes the uploaded file and text fields, confirming the frontend is sending the data correctly.*
 
 When the request is sent, the backend (via API Gateway and a Lambda function) will process the receipt. The React app waits for a response. A successful response (HTTP 200 OK) indicates the receipt was ingested and processed, whereas an error status would indicate something went wrong (such as a validation error or server issue). The frontend handles each case to give feedback to the user.
-
+### Network Panel – POST /receipts 200 OK
+![Network POST 200](network%20post%20receipt%20200.png)
 ---
 
 ## Success Feedback with Toast
@@ -78,7 +81,8 @@ This code displays a brief, non-intrusive message to the user. The toast is typi
 🖼️ **Screenshot 3: Success toast message after submit** – *A green success toast is shown in the React app, confirming to the user that the receipt was uploaded and processed without issues.*
 
 In addition to showing a toast, the frontend may also reset the form (e.g. clear the file input and text area) to prepare for the next upload. This gives the user clear visual confirmation that the operation succeeded and the form is ready for new input.
-
+### Network Panel – Request Details
+![Network POST Details](network%20post%20receipt%20details.png)
 ---
 
 ## Error Handling
