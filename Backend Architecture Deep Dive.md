@@ -22,6 +22,7 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 
 ## Lambda Functions and Responsibilities
 
+
 | Function | Purpose |
 |----------|---------|
 | **PostReceiptFunction** | Handles `POST /receipt`, calls Textract, stores data in DynamoDB, indexes in OpenSearch. |
@@ -29,7 +30,7 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 | **SearchReceiptsFunction** | Handles `GET /receipts?query=...`, searches OpenSearch, fetches matching receipts from DynamoDB. |
 
 ---
-1. AWS Lambda – Functions List
+#1. AWS Lambda – Functions List
 Shows all deployed Lambda functions used in the project.
 ![Lambda Functions List](lambda-functions-list.png)
 
