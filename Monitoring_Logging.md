@@ -7,7 +7,7 @@
 ## CloudWatch Logs Insights Query Example & Results
 
 ![CloudWatch Logs Insights query filtering for "Inserted successfully"](path/to/cloudwatch-logs-insights.png)  
-*Figure 1: Query results showing successful insert log events.*
+# Figure 1: Query results showing successful insert log events.*
 
 In our system, all key operations (such as inserting a record into the database) are logged. The screenshot above shows a CloudWatch Logs Insights query that filters the Lambda function’s logs for the phrase **“Inserted successfully”**, which is logged upon a successful insert. The query results confirm that insert operations are completing as expected, with timestamps and log messages indicating success events.
 
@@ -18,7 +18,7 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 ## Custom CloudWatch Metrics (InsertSuccess & InsertError)
 
 ![Custom CloudWatch metrics dashboard showing InsertSuccess & InsertError](path/to/cloudwatch-custom-metrics.png)  
-*Figure 2: Custom metrics tracking successful vs failed inserts.*
+# Figure 2: Custom metrics tracking successful vs failed inserts.*
 
 Two critical custom metrics are defined:  
 - **InsertSuccess** – Count of successful insert operations.  
@@ -33,13 +33,13 @@ By visualizing these metrics, we can see trends over time, spot spikes in errors
 ## CloudWatch Alarms (Thresholds & Descriptions)
 
 ![InsertErrorAlarm details page](path/to/insert-error-alarm.png)  
-*Figure 3: Alarm for any insert failure (≥ 1 error in 5 min).*
+# Figure 3: Alarm for any insert failure (≥ 1 error in 5 min).*
 
 ![InsertSuccessAlarm details page](path/to/insert-success-alarm.png)  
-*Figure 4: Alarm for pipeline inactivity (no successes in 15 min).*
+# Figure 4: Alarm for pipeline inactivity (no successes in 15 min).*
 
 ![Alarm list page](path/to/alarm-list.png)  
-*Figure 5: Dashboard view of all active alarms.*
+# Figure 5: Dashboard view of all active alarms.*
 
 We created **InsertErrorAlarm** and **InsertSuccessAlarm** with thresholds designed to detect:  
 - **Any failure** – Triggers if ≥ 1 error in 5 minutes.  
@@ -51,11 +51,12 @@ These alarms send Amazon SNS notifications to our Ops channels for immediate act
 
 ## AWS X-Ray Tracing (Traces List & Service Map)
 
-![X-Ray traces list view](path/to/xray-traces-list.png)  
-*Figure 6: List of recent request traces.*
 
-![X-Ray service map](path/to/xray-service-map.png)  
-*Figure 7: Visual architecture and health overview.*
+# Figure 6: List of recent request traces.*
+![X-Ray Traces List](screenshots/xray-traces-list.png)
+ 
+# 7: Visual architecture and health overview.*
+![X-Ray Service Map](screenshots/xray-trace-map.png)
 
 We enabled **AWS X-Ray** for Lambda and downstream services to capture distributed traces.  
 - **Traces list** – Shows per-request latency, status, and detailed execution timeline.  
