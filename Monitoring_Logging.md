@@ -6,8 +6,9 @@
 
 ## CloudWatch Logs Insights Query Example & Results
 
-![CloudWatch Logs Insights query filtering for "Inserted successfully"](path/to/cloudwatch-logs-insights.png)  
+
 # Figure 1: Query results showing successful insert log events.*
+![CloudWatch Logs Insights Query](screenshots/cloudwatch-logs-insights-query.png)
 
 In our system, all key operations (such as inserting a record into the database) are logged. The screenshot above shows a CloudWatch Logs Insights query that filters the Lambda function’s logs for the phrase **“Inserted successfully”**, which is logged upon a successful insert. The query results confirm that insert operations are completing as expected, with timestamps and log messages indicating success events.
 
@@ -17,9 +18,9 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 
 ## Custom CloudWatch Metrics (InsertSuccess & InsertError)
 
-![Custom CloudWatch metrics dashboard showing InsertSuccess & InsertError](path/to/cloudwatch-custom-metrics.png)  
-# Figure 2: Custom metrics tracking successful vs failed inserts.*
 
+# Figure 2: Custom metrics tracking successful vs failed inserts.*
+![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
 Two critical custom metrics are defined:  
 - **InsertSuccess** – Count of successful insert operations.  
 - **InsertError** – Count of failed insert attempts.  
@@ -32,15 +33,16 @@ By visualizing these metrics, we can see trends over time, spot spikes in errors
 
 ## CloudWatch Alarms (Thresholds & Descriptions)
 
-![InsertErrorAlarm details page](path/to/insert-error-alarm.png)  
+  
 # Figure 3: Alarm for any insert failure (≥ 1 error in 5 min).*
+![InsertError Alarm Details](screenshots/cloudwatch-inserterror-alarm-details.png)
 
-![InsertSuccessAlarm details page](path/to/insert-success-alarm.png)  
 # Figure 4: Alarm for pipeline inactivity (no successes in 15 min).*
+![InsertSuccess Alarm Details](screenshots/cloudwatch-insertsuccess-alarm-details.png)
 
-![Alarm list page](path/to/alarm-list.png)  
+
 # Figure 5: Dashboard view of all active alarms.*
-
+![CloudWatch Alarms List](screenshots/cloudwatch-alarms-list.png)
 We created **InsertErrorAlarm** and **InsertSuccessAlarm** with thresholds designed to detect:  
 - **Any failure** – Triggers if ≥ 1 error in 5 minutes.  
 - **Pipeline stalls** – Triggers if 0 successes in 15 minutes.  
