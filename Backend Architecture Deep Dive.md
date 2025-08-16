@@ -34,9 +34,9 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 Shows all deployed Lambda functions used in the project.  
 ![Lambda Functions List](lambda-functions-list.png)
 
-## Lambda Environment Variables
+## Lambda Environment Variables  
 Displays the environment variables configured for the PostReceiptFunction.  
-![Lambda Environment Variables](lambda-env-vars.png)
+![Lambda Environment Variables](Lambda%20Environment%20Variables.png)
 
 ## IAM Role Permissions
 Shows the Lambda execution role permissions.  
