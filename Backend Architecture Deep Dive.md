@@ -30,18 +30,35 @@ All infrastructure is defined and deployed via **Terraform**, ensuring consisten
 | **SearchReceiptsFunction** | Handles `GET /receipts?query=...`, searches OpenSearch, fetches matching receipts from DynamoDB. |
 
 ---
-#1. AWS Lambda – Functions List
-Shows all deployed Lambda functions used in the project.
+## AWS Lambda – Functions List
+Shows all deployed Lambda functions used in the project.  
 ![Lambda Functions List](lambda-functions-list.png)
 
-![Lambda Environment Variables](lambda-env-vars.pn.png)
+## Lambda Environment Variables
+Displays the environment variables configured for the PostReceiptFunction.  
+![Lambda Environment Variables](lambda-env-vars.png)
+
+## IAM Role Permissions
+Shows the Lambda execution role permissions.  
 ![IAM Role Permissions](iam-role-permissions.png)
+
+## IAM Policy JSON
+Policy document defining allowed actions for the Lambda role.  
 ![IAM Policy JSON](iam-policy-json.png)
+
+## API Gateway Methods
+Illustrates the methods configured for API Gateway.  
 ![API Gateway Methods](api-gateway-methods.png)
+
+## DynamoDB Item Form View
+Shows DynamoDB item in form mode.  
 ![DynamoDB Item Form View](dynamodb-item-form.png)
+
+## DynamoDB Item JSON View
+Shows DynamoDB item in JSON mode.  
 ![DynamoDB Item JSON View](dynamodb-item-json.png)
 
-Backend Workflow
+## Backend Workflow
 Receipt Ingestion (POST /receipt)
 mermaid
 Copy
