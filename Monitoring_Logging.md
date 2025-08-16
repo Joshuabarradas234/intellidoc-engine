@@ -21,6 +21,7 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 
 # Figure 2: Custom metrics tracking successful vs failed inserts.*
 ![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
+
 Two critical custom metrics are defined:  
 - **InsertSuccess** – Count of successful insert operations.  
 - **InsertError** – Count of failed insert attempts.  
