@@ -8,11 +8,12 @@
 
 
 # Figure 1: Query results showing successful insert log events.*
-![CloudWatch Logs Insights Query](screenshots/cloudwatch-logs-insights-query.png)
-
 In our system, all key operations (such as inserting a record into the database) are logged. The screenshot above shows a CloudWatch Logs Insights query that filters the Lambda function’s logs for the phrase **“Inserted successfully”**, which is logged upon a successful insert. The query results confirm that insert operations are completing as expected, with timestamps and log messages indicating success events.
 
 Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log data to **diagnose problems** and **verify system behavior**. If a data ingestion fails or an anomaly occurs, targeted log queries help find the root cause in seconds.
+![CloudWatch Logs Insights Query](screenshots/cloudwatch-logs-insights-query.png)
+
+
 
 ---
 
@@ -20,12 +21,13 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 
 
 # Figure 2: Custom CloudWatch metrics tracking successful vs. failed inserts.*
-![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
-
 This figure shows two custom metrics emitted by the Lambda function at runtime: 
 InsertSuccess (successful DynamoDB writes) 
 InsertError (failed attempts).
 These metrics provide deeper visibility beyond default AWS metrics, allowing engineers to spot spikes in errors, track throughput trends, and detect sudden anomalies in the system’s data ingestion pipeline.
+![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
+
+
 
 ---
 
