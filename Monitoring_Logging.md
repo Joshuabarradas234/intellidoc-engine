@@ -20,7 +20,7 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 
 
 # Figure 2: Custom CloudWatch metrics tracking successful vs. failed inserts.*
-![CloudWatch Custom Metrics](screenshots/metrics-figure2.png)
+![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
 
 This figure shows two custom metrics emitted by the Lambda function at runtime: 
 InsertSuccess (successful DynamoDB writes) 
