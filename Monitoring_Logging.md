@@ -19,16 +19,13 @@ Using **CloudWatch Logs Insights**, engineers can quickly search and analyze log
 ## Custom CloudWatch Metrics (InsertSuccess & InsertError)
 
 
-# Figure 2: Custom metrics tracking successful vs failed inserts.*
-![CloudWatch Custom Metrics](screenshots/cloudwatch-custom-metrics.png)
+# Figure 2: Custom CloudWatch metrics tracking successful vs. failed inserts.*
+![CloudWatch Custom Metrics](screenshots/metrics-figure2.png)
 
-Two critical custom metrics are defined:  
-- **InsertSuccess** – Count of successful insert operations.  
-- **InsertError** – Count of failed insert attempts.  
-
-These metrics are emitted by the Lambda function at runtime. They provide quantitative insight into the system’s health beyond default AWS metrics.  
-
-By visualizing these metrics, we can see trends over time, spot spikes in errors, and detect sudden drops in throughput. The next section covers how alarms are configured on these metrics.
+This figure shows two custom metrics emitted by the Lambda function at runtime: 
+InsertSuccess (successful DynamoDB writes) 
+InsertError (failed attempts).
+These metrics provide deeper visibility beyond default AWS metrics, allowing engineers to spot spikes in errors, track throughput trends, and detect sudden anomalies in the system’s data ingestion pipeline.
 
 ---
 
