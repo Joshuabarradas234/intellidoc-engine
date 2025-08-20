@@ -15,7 +15,55 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
 - **Headers:** Included `Content-Type: application/json`
 - **Body:** Selected **raw** JSON format and provided a JSON payload representing the receipt data:
+## Screenshot 2: Postman Response Success
+With Postman configured, we executed the POST request to the `/receipts` endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
 
+**Example response:**
+```json
+{
+  "message": "Receipt saved successfully!",
+  "receiptId": "receipt1.txt#2025-08-20T08:32:10.6956"
+}
+Performance Metrics:
+
+Response Time: 565ms (well within acceptable limits)
+Response Size: 537 B
+Status: 200 OK
+Success Rate: 100% during testing
+What this shows:
+
+Successful HTTP 200 OK response from the API
+JSON response body with success message and generated receipt ID
+Response time of 565ms indicating good performance
+Response size of 537 bytes showing efficient data transfer
+Green status indicator confirming successful API call
+Complete request/response cycle working as expected
+![Postman Response Success](screenshots/Postman-response-succes.png)
+
+## Screenshot 3: CloudWatch Monitoring Validation
+![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png%20.png)
+The Lambda backend publishes custom metrics to CloudWatch for comprehensive monitoring:
+
+- **InsertSuccess** – increments on successful receipt insertions
+- **InsertError** – increments on failed insert attempts
+
+After our POST request, InsertSuccess increased by 1.04, and InsertError remained 0, confirming the API worked as expected and monitoring captured the event accurately.
+
+**Metrics Details:**
+- **Metric Name:** InsertSuccess
+- **Count:** 1.04 successful operations
+- **Time Range:** 1 day view
+- **Timestamp:** 2025-08-20 08:30 UTC
+- **Region:** us-east-1 (N. Virginia)
+
+**What this shows:**
+- CloudWatch dashboard displaying InsertSuccess metric
+- Graph showing successful API call at 08:30 UTC on 2025-08-20
+- Metric count of 1.04 confirming the test execution
+- Time-series visualization of API performance
+- No error metrics, indicating clean execution
+- Real-time monitoring capabilities working correctly
+- Proper metric collection and visualization in AWS CloudWatch
 ```json
 {
   "documentName": "receipt1.txt",
