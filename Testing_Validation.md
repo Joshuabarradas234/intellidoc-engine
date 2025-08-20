@@ -3,7 +3,7 @@
 **Purpose:** Prove the API works end-to-end by executing real requests and verifying that each component (from request handling to data storage and monitoring) functions correctly.
 
 ---
-![Postman Request Setup](screenshots/Postman-request-setup.png)
+
 # 🔧 API Testing Setup
 
 ## Postman Configuration (URL, Headers, JSON Body)
@@ -20,7 +20,7 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
   "receiptText": "Milk 2.99, Bread 1.49"
 }
 📸 Screenshot 1 (Postman Request Setup):
-
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 
 What this shows:
 
