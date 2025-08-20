@@ -3,7 +3,8 @@
 **Purpose:** Prove the API works end-to-end by executing real requests and verifying that each component (from request handling to data storage and monitoring) functions correctly.
 
 ---
-
+### Screenshot 1: Postman Request Setup
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 ## Postman Setup (URL, Headers, JSON Body)
 
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
