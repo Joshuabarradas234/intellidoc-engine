@@ -3,7 +3,7 @@
 **Purpose:** Prove the API works end-to-end by executing real requests and verifying that each component (from request handling to data storage and monitoring) functions correctly.
 
 ---
-screenshots/Cloudwatch-insertsucces.png .png 
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 # 🔧 API Testing Setup
 
 ## Postman Configuration (URL, Headers, JSON Body)
