@@ -19,7 +19,7 @@ The **Invoke URL** for this stage is the default API Gateway endpoint: `https://
 
 ## Cognito Authentication Setup (Future Enhancement)
 
-![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
+![Cognito User Pool Configuration](screenshots/cognito%20-user-pool.png)
 
 *Screenshot 2: Amazon Cognito User Pool overview showing the user pool configuration, including user pool ID, creation date, and token signing key URL for JWT authentication.*
 **What this shows:**
