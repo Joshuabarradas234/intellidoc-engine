@@ -7,8 +7,6 @@
 
 ![API Gateway Stage Configuration](screenshots/apigateway-stage.png)
 
-![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
-
 **What this shows:**
 - API Gateway production stage configuration interface
 - Stage name set to "prod" with rate limiting configured at 10000 requests
@@ -23,7 +21,7 @@ The **Invoke URL** for this stage is the default API Gateway endpoint: `https://
 ![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 
 *Screenshot 2: Amazon Cognito User Pool overview showing the user pool configuration, including user pool ID, creation date, and token signing key URL for JWT authentication.*
-
+![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 **What this shows:**
 - Amazon Cognito User Pool overview dashboard
 - User pool name: "User pool - 241wur" with unique identifier
