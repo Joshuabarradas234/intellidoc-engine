@@ -7,10 +7,26 @@
 # 🔧 API Testing Setup
 
 ## Screenshot 1: Postman Request Configuration
+To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
 
+- **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
+- **Headers:** Included `Content-Type: application/json`
+- **Body:** Selected **raw** JSON format and provided a JSON payload representing the receipt data:
+
+```json
+{
+  "documentName": "receipt1.txt",
+  "receiptText": "Milk 2.99, Bread 1.49"
+}
+What this shows:
+
+POST method configuration targeting the correct API Gateway endpoint
+Required headers including Content-Type: application/json
+JSON body structure with documentName and receiptText fields
+Postman interface ready to send the test request
+Clean workspace setup for API testing
 ![Postman Request Setup](screenshots/Postman-request-setup.png)
 
-To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
 
 ## Screenshot 2: Postman Response Success
 ![Postman Response Success](screenshots/Postman-response-succes.png)
