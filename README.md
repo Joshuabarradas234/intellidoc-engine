@@ -22,6 +22,14 @@ It showcases a full-stack AWS solution using **Lambda**, **Textract**, **DynamoD
 ## Architecture Diagram
 
 ![Architecture Diagram](screenshots/Architecture%20Diagram.png)
+This diagram shows how IntelliDoc Engine turns raw receipts/documents into fast, searchable insights using a fully serverless AWS pipeline. Each layer has a specific job:
+
+Frontend Layer (React Web UI): Provides a simple upload form for users to submit scanned receipts or PDFs. Validates files client‑side and sends them securely to the backend.
+Ingestion Layer (Amazon S3 + API Gateway): API Gateway receives uploads and routes them to S3. Each new object in the S3 bucket emits an event that reliably triggers the processing workflow without polling.
+Processing Layer (AWS Lambda + Amazon Textract): A Lambda function is invoked by the S3 event. It calls Textract to extract text, key fields, and line items from the document, then cleans and normalizes the results into a consistent JSON schema.
+Storage Layer (Amazon DynamoDB): The normalized document data and metadata (vendor, date, totals, item lines, file pointers) are stored in DynamoDB for durable, low‑latency retrieval and auditing.
+Search & Analytics Layer (Amazon OpenSearch Service): Search-friendly fields are indexed so users can run instant keyword and fielded searches (e.g., vendor:"Target", date ranges, item name contains "batteries"). Supports filtering, sorting, and aggregations.
+Monitoring & Security Layer (Amazon CloudWatch + Amazon Cognito + IAM): CloudWatch captures logs, metrics, and alarms for the entire pipeline. Cognito optionally secures API access and the UI with managed auth. IAM enforces least-privilege access across services.
 
 *End-to-end serverless architecture of IntelliDoc Engine.*
 
