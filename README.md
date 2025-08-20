@@ -1,4 +1,3 @@
-Looking at your screenshot, I can see the content isn't using proper Markdown syntax. Here's the correct GitHub Markdown format with proper headers (#, ##), lists (-), and code blocks:
 
 # IntelliDoc Engine — AI-Powered Document Processing on AWS
 
