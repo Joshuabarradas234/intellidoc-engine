@@ -8,6 +8,7 @@
 
 ## Postman Configuration (URL, Headers, JSON Body)
 ![Postman Request Setup](screenshots/Postman-request-setup.png)
+
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
 
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
@@ -19,9 +20,6 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
   "documentName": "receipt1.txt",
   "receiptText": "Milk 2.99, Bread 1.49"
 }
-📸 Screenshot 1 (Postman Request Setup):
-![Postman Request Setup](screenshots/Postman-request-setup.png)
-
 What this shows:
 
 POST method configuration targeting the correct API Gateway endpoint
@@ -31,6 +29,8 @@ Postman interface ready to send the test request
 Clean workspace setup for API testing
 🚀 API Response Testing
 Example POST Request → Response
+
+
 With Postman configured, we executed the POST request to the /receipts endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
 
 Example response:
@@ -47,9 +47,6 @@ Response Time: 565ms (well within acceptable limits)
 Response Size: 537 B
 Status: 200 OK
 Success Rate: 100% during testing
-📸 Screenshot 2: Postman Response (200 OK)
-
-
 What this shows:
 
 Successful HTTP 200 OK response from the API
@@ -96,6 +93,8 @@ These checks confirm the API gracefully handles incorrect or unexpected inputs w
 
 📊 CloudWatch Monitoring Validation
 Real-time Metrics Tracking
+
+
 The Lambda backend publishes custom metrics to CloudWatch for comprehensive monitoring:
 
 InsertSuccess – increments on successful receipt insertions
@@ -109,9 +108,6 @@ Count: 1.04 successful operations
 Time Range: 1 day view
 Timestamp: 2025-08-20 08:30 UTC
 Region: us-east-1 (N. Virginia)
-📸 Screenshot 3: CloudWatch Metrics After Test
-
-
 What this shows:
 
 CloudWatch dashboard displaying InsertSuccess metric
