@@ -18,10 +18,10 @@
 The **Invoke URL** for this stage is the default API Gateway endpoint: `https://<api_id>.execute-api.<region>.amazonaws.com/prod`. The React frontend uses this URL to call the API over HTTPS. No caching is enabled at the stage (requests are handled in real-time by the Lambdas), and no custom throttling settings are in place beyond the default AWS limits. Currently, there is no usage plan or API key required for the prod stage, as authentication will be handled via Cognito in the future.
 
 ## Cognito Authentication Setup (Future Enhancement)
+
 ![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 
 *Screenshot 2: Amazon Cognito User Pool overview showing the user pool configuration, including user pool ID, creation date, and token signing key URL for JWT authentication.*
-![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 **What this shows:**
 - Amazon Cognito User Pool overview dashboard
 - User pool name: "User pool - 241wur" with unique identifier
