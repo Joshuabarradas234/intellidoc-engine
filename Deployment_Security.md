@@ -3,10 +3,10 @@
 **Purpose:** Describe the deployment process and security measures of the IntelliDoc application.
 
 ## API Gateway Stage Configuration (Prod)
+*Screenshot 1: API Gateway "prod" stage settings in the AWS console, showing CloudWatch Logs and X-Ray tracing enabled for the stage.* The application's backend is deployed on **AWS**, with all infrastructure managed as code using **Terraform**. The core of this deployment is an **Amazon API Gateway** exposing the backend functionality through a stage named **prod**. The API Gateway prod stage has **CloudWatch execution logging** set to **INFO** level, capturing request and response data for monitoring and debugging. Additionally, **X-Ray tracing** is enabled, providing end-to-end visibility into requests across services for performance analysis.
 
 ![API Gateway Stage Configuration](screenshots/apigateway-stage.png)
 
-*Screenshot 1: API Gateway "prod" stage settings in the AWS console, showing CloudWatch Logs and X-Ray tracing enabled for the stage.* The application's backend is deployed on **AWS**, with all infrastructure managed as code using **Terraform**. The core of this deployment is an **Amazon API Gateway** exposing the backend functionality through a stage named **prod**. The API Gateway prod stage has **CloudWatch execution logging** set to **INFO** level, capturing request and response data for monitoring and debugging. Additionally, **X-Ray tracing** is enabled, providing end-to-end visibility into requests across services for performance analysis.
 
 **What this shows:**
 - API Gateway production stage configuration interface
@@ -24,7 +24,7 @@ The **Invoke URL** for this stage is the default API Gateway endpoint: `https://
 ![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 
 *Screenshot 2: Amazon Cognito User Pool overview showing the user pool configuration, including user pool ID, creation date, and token signing key URL for JWT authentication.*
-
+![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 **What this shows:**
 - Amazon Cognito User Pool overview dashboard
 - User pool name: "User pool - 241wur" with unique identifier
