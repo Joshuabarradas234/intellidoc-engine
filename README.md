@@ -1,8 +1,9 @@
-IntelliDoc Engine — AI-Powered Document Processing on AWS
 
-One‑liner: Upload any receipt or document → extract vendor, date, and items → search everything instantly.
+IntelliDoc Engine — AI‑Powered Document Processing on AWS
 
-🚀 Executive Summary
+One‑liner: Upload any receipt or document -> extract vendor, date, and items -> search everything instantly.
+
+Executive Summary
 
 IntelliDoc Engine is a serverless AI‑powered document processing pipeline that automatically extracts text from uploaded documents, classifies them, and makes the content immediately searchable.
 
@@ -11,8 +12,12 @@ It showcases a full‑stack AWS solution using Lambda, Textract, DynamoDB, OpenS
 Problem: Manual document processing is slow, error‑prone, and makes it difficult to search through large archives of files.
 Solution: Automate ingestion, OCR text extraction, and indexing into a searchable database.
 Outcome: A scalable, pay‑per‑use system that processes documents in real time, enabling instant keyword search.
-🏗 Architecture Diagram
-☁ AWS Services Overview
+Architecture Diagram
+
+Architecture Diagram
+End‑to‑end serverless architecture of IntelliDoc Engine.
+
+AWS Services Overview
 Service	Role in IntelliDoc Engine
 Amazon S3	Storage for uploaded documents; triggers OCR workflow
 AWS Lambda	Orchestrates processing; serverless compute
@@ -23,7 +28,7 @@ Amazon API Gateway	REST endpoints (/upload, /search)
 Amazon Cognito	(Optional) Authentication for secure API access
 Amazon CloudWatch	Logging, metrics, alarms
 AWS X‑Ray	Distributed tracing for performance analysis
-✨ Key Features
+Key Features
 Automated OCR & Text Extraction via Textract with clean, structured storage for search.
 Document classification stub (upgradeable to ML models).
 Serverless processing pipeline that auto‑scales with no server management.
@@ -34,14 +39,14 @@ IAM & least privilege with security best practices applied.
 
 Why it matters: Quickly search and analyze invoices/receipts across large archives without manual review.
 
-🖼 Screenshots
+Screenshots
 Frontend Upload UI — screenshots/01-react-form.png
 Upload Confirmation — screenshots/02-upload-success.png
 DynamoDB Storage — screenshots/03-dynamodb-record.png
 OpenSearch Query Results — screenshots/04-opensearch-results.png
 X‑Ray Trace Visualization — screenshots/05-xray-trace.png
 API Search Test (Postman) — screenshots/06-postman-search.png
-📁 Repository Structure
+Repository Structure
 IntelliDocEngine/
 ├── architecture/
 │   └── intellidoc-architecture.png
@@ -77,7 +82,7 @@ IntelliDocEngine/
 ├── README.md
 └── LICENSE
 
-⚡ Quick Setup Guide
+Quick Setup Guide
 
 Prerequisites
 
@@ -93,7 +98,7 @@ Deploy Lambda functions — upload_handler, textract_processor, indexer, search_
 Connect Lambdas to events — S3 triggers, API Gateway routes.
 Configure frontend — update aws-config.js.
 Test the solution — upload document, search keyword.
-🧪 How to Use
+How to Use
 
 Upload Document
 
@@ -106,25 +111,31 @@ Search Document
 
 curl "<API_URL>/search?query=invoice"
 
-✅ Testing & Results
+Testing & Results
 Verified with Postman (end‑to‑end upload + search).
 CloudWatch logs confirm successful Textract, DynamoDB, OpenSearch writes.
 AWS X‑Ray traces show full flow and latency breakdown.
 Error handling for large/invalid files included.
-🔒 Security & 💰 Cost Considerations
+Security & Cost Considerations
 Least‑privilege IAM roles for each Lambda.
 No hardcoded secrets — env vars & AWS Secrets Manager.
 Encryption at rest + in transit.
 Cognito authentication (optional).
 Cost‑efficient serverless design — scales to zero when idle.
-🧭 Future Improvements
+Future Improvements
 Step Functions for orchestration.
 NLP/ML enrichment with Comprehend, Bedrock, or SageMaker.
 Semantic search with vector embeddings.
 Advanced UI with previews and analytics.
 Structured data extraction from forms/tables.
-🎥 Demo Video
-🙇 Credits
+Demo Video
+
+screenshots/demo.mp4
+(Optional poster: screenshots/demo-poster.png)
+
+Tip: GitHub will render the MP4 inline on the repo page. If you prefer a link, add: [Watch the demo](screenshots/demo.mp4).
+
+Credits
 
 Author: Joshua Barradas
 
@@ -133,6 +144,8 @@ LinkedIn: Joshua Barradas
 
 Acknowledgements: Inspired by AWS reference architectures for intelligent document processing.
 
-📜 License
+License
+
+This project is licensed under the MIT License — see the LICENSE file for details.
 
 This project is licensed under the MIT License — see the LICENSE file for details.
