@@ -38,7 +38,8 @@ Performance Metrics:
 Response Time: 565ms
 Response Size: 537 B
 Status: 200 OK
-Screenshot 2: Postman Response (200 OK)
+### Screenshot 2: Postman Response (200 OK)
+![Postman Response Success](screenshots/Postman-response-succes.png)
 
 
 Shows the JSON response in Postman with a success message and receipt ID, along with response time and status code.
@@ -86,7 +87,8 @@ After our POST request, InsertSuccess increased by 1.04, and InsertError remaine
 
 Metrics Details:
 
-Metric Name: InsertSuccess
+### Screenshot 3: CloudWatch Metrics After Test
+![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png%20.png)
 Count: 1.04 successful operations
 Time Range: 1 day view
 Timestamp: 2025-08-20 08:30 UTC
