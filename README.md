@@ -18,26 +18,6 @@ It showcases a full-stack AWS solution using **Lambda, Textract, DynamoDB, OpenS
 
 ---
 
-## Architecture Diagram
-
-![Architecture Diagram](Lambda%20Environment%20Variables.png)
-
-The IntelliDoc Engine follows a serverless microservices architecture with clear separation of concerns across multiple layers:
-
-**Frontend Layer:** React-based upload interface that communicates with the backend via REST API calls, providing users with an intuitive document submission experience.
-
-**API Gateway Layer:** Centralized entry point that handles request routing, authentication, and rate limiting while providing a unified interface for all backend services.
-
-**Processing Layer:** Lambda functions orchestrate the document workflow - from initial upload handling through OCR text extraction via AWS Textract, to final indexing and storage operations.
-
-**Storage Layer:** DynamoDB provides fast, scalable NoSQL storage for document metadata and extracted content, while OpenSearch enables powerful full-text search capabilities across all processed documents.
-
-**Monitoring Layer:** CloudWatch captures comprehensive logs and metrics, while X-Ray provides distributed tracing for performance optimization and debugging.
-
-This architecture enables automatic scaling, cost-effective pay-per-use pricing, and enterprise-grade security through IAM roles and least-privilege access patterns.
-
----
-
 ## AWS Services Overview
 
 | Service | Purpose | Configuration |
@@ -68,27 +48,112 @@ This architecture enables automatic scaling, cost-effective pay-per-use pricing,
 
 ---
 
-## Documentation & Screenshots
+## Architecture Diagram
 
-### Core Documentation
-- **[Backend Architecture Deep Dive](Backend%20Architecture%20Deep%20Dive.md)** — Lambda functions, IAM roles, DynamoDB structure
-- **[Frontend Implementation](Frontend.md)** — React upload form and API integration
-- **[Monitoring & Logging](Monitoring_Logging.md)** — CloudWatch metrics, alarms, and X-Ray tracing
-- **[Testing & Validation](Testing_Validation.md)** — Postman API tests and validation
-- **[Deployment & Security](Deployment_Security.md)** — Infrastructure setup and security configuration
+![Architecture Diagram](screenshots/Architecture%20Diagram.png)
 
-### Key Screenshots
-- **[Frontend Upload Form](frontendUpload%20Form.png)** — React-based document upload interface
-- **[Lambda Functions List](lambda-functions-list.png)** — AWS Lambda function overview
-- **[Lambda Environment Variables](Lambda%20Environment%20Variables.png)** — Configuration and environment setup
-- **[IAM Role Permissions](iam-role-permissions.png)** — Security and access control
-- **[IAM Policy JSON](iam-policy-json.png)** — Detailed permission policies
-- **[API Gateway Methods](api-gateway-methods.png)** — REST API endpoint configuration
-- **[DynamoDB Item Form](dynamodb-item-form.png)** — Document metadata storage
-- **[DynamoDB Item JSON](dynamodb-item-json.png)** — Structured data format
-- **[Network POST Receipt](network%20post%20receipt%20200.png)** — Successful API response
-- **[Network POST Receipt Details](network%20post%20receipt%20details.png)** — Detailed request/response
+The IntelliDoc Engine follows a serverless microservices architecture with clear separation of concerns across multiple layers:
+
+**Frontend Layer:** React-based upload interface that communicates with the backend via REST API calls, providing users with an intuitive document submission experience.
+
+**API Gateway Layer:** Centralized entry point that handles request routing, authentication, and rate limiting while providing a unified interface for all backend services.
+
+**Processing Layer:** Lambda functions orchestrate the document workflow - from initial upload handling through OCR text extraction via AWS Textract, to final indexing and storage operations.
+
+**Storage Layer:** DynamoDB provides fast, scalable NoSQL storage for document metadata and extracted content, while OpenSearch enables powerful full-text search capabilities across all processed documents.
+
+**Monitoring Layer:** CloudWatch captures comprehensive logs and metrics, while X-Ray provides distributed tracing for performance optimization and debugging.
+
+This architecture enables automatic scaling, cost-effective pay-per-use pricing, and enterprise-grade security through IAM roles and least-privilege access patterns.
 
 ---
 
-## Repository Structure
+## Documentation & Screenshots
+
+### [Backend Architecture Deep Dive](Backend%20Architecture%20Deep%20Dive.md)
+- [lambda-functions-list.png](lambda-functions-list.png)
+- [Lambda Environment Variables.png](Lambda%20Environment%20Variables.png)
+- [iam-role-permissions.png](iam-role-permissions.png)
+- [iam-policy-json.png](iam-policy-json.png)
+- [api-gateway-methods.png](api-gateway-methods.png)
+- [dynamodb-item-form.png](dynamodb-item-form.png)
+
+### [Frontend](Frontend.md)
+- [frontendUpload Form.png](frontendUpload%20Form.png)
+- [network post receipt 200.png](network%20post%20receipt%20200.png)
+- [network post receipt details.png](network%20post%20receipt%20details.png)
+
+### [Monitoring_Logging](Monitoring_Logging.md)
+- [dynamodb-item-json.png](dynamodb-item-json.png)
+
+### [Testing_Validation](Testing_Validation.md)
+- [network post receipt 200.png](network%20post%20receipt%20200.png)
+- [network post receipt details.png](network%20post%20receipt%20details.png)
+
+### [Deployment_Security](Deployment_Security.md)
+- [api-gateway-methods.png](api-gateway-methods.png)
+
+---
+
+## Quick Setup Guide
+
+**Prerequisites**
+- AWS CLI configured with appropriate permissions
+- Terraform >= 1.0
+- Node.js >= 16 for frontend
+- Python 3.9+ for Lambda development
+
+**Deployment Steps**
+
+1. **Provision AWS resources** — S3, DynamoDB, OpenSearch, API Gateway, Cognito (optional).
+2. **Deploy Lambda functions** — `upload_handler`, `textract_processor`, `indexer`, `search_api`.
+3. **Connect Lambdas to events** — S3 triggers, API Gateway routes.
+4. **Configure frontend** — update `aws-config.js`.
+5. **Test the solution** — upload document, search keyword.
+
+---
+
+## How to Use
+
+**Upload Document**
+
+```bash
+curl -X POST "<API_URL>/upload" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@/path/to/document.pdf"
+Search Document
+
+bash
+Copy
+curl "<API_URL>/search?query=invoice"
+Testing & Results
+Verified with Postman (end-to-end upload + search).
+CloudWatch logs confirm successful Textract, DynamoDB, OpenSearch writes.
+AWS X-Ray traces show full flow and latency breakdown.
+Error handling for large/invalid files included.
+Security & Cost Considerations
+Least-privilege IAM roles for each Lambda.
+No hardcoded secrets — env vars & AWS Secrets Manager.
+Encryption at rest + in transit.
+Cognito authentication (optional).
+Cost-efficient serverless design — scales to zero when idle.
+
+Future Improvements
+Step Functions for orchestration.
+NLP/ML enrichment with Comprehend, Bedrock, or SageMaker.
+Semantic search with vector embeddings.
+Advanced UI with previews and analytics.
+Structured data extraction from forms/tables.
+Demo Video
+Watch the demo
+
+Credits
+Author: Joshua Barradas
+
+GitHub: Joshuabarradas234
+LinkedIn: Joshua Barradas
+
+Acknowledgements: Inspired by AWS reference architectures for intelligent document processing.
+
+License
+This project is licensed under the MIT License — see the LICENSE file for details.
