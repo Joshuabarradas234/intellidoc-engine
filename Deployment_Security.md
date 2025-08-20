@@ -7,6 +7,7 @@
 
 ![API Gateway Stage Configuration](screenshots/apigateway-stage.png)
 
+![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 
 **What this shows:**
 - API Gateway production stage configuration interface
@@ -16,7 +17,6 @@
 - AWS console interface for managing API Gateway stages
 - Production-ready deployment settings with proper rate limiting
 - Security configurations including Web Application Firewall integration
-![Cognito User Pool Configuration](screenshots/cognito-user-pool.png)
 The **Invoke URL** for this stage is the default API Gateway endpoint: `https://<api_id>.execute-api.<region>.amazonaws.com/prod`. The React frontend uses this URL to call the API over HTTPS. No caching is enabled at the stage (requests are handled in real-time by the Lambdas), and no custom throttling settings are in place beyond the default AWS limits. Currently, there is no usage plan or API key required for the prod stage, as authentication will be handled via Cognito in the future.
 
 ## Cognito Authentication Setup (Future Enhancement)
