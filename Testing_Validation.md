@@ -3,8 +3,7 @@
 **Purpose:** Prove the API works end-to-end by executing real requests and verifying that each component (from request handling to data storage and monitoring) functions correctly.
 
 ---
-📸 Screenshot 1: Postman Request Setup
-screenshots/Cloudwatch-insertsucces.png .png
+screenshots/Cloudwatch-insertsucces.png .png 
 # 🔧 API Testing Setup
 
 ## Postman Configuration (URL, Headers, JSON Body)
@@ -20,8 +19,8 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
   "documentName": "receipt1.txt",
   "receiptText": "Milk 2.99, Bread 1.49"
 }
-📸 Screenshot 1: Postman Request Setup
-screenshots/Cloudwatch-insertsucces.png .png
+📸 Screenshot 1 (Postman Request Setup):
+
 
 What this shows:
 
@@ -111,7 +110,7 @@ Time Range: 1 day view
 Timestamp: 2025-08-20 08:30 UTC
 Region: us-east-1 (N. Virginia)
 📸 Screenshot 3: CloudWatch Metrics After Test
-screenshots/Cloudwatch-insertsucces.png .png 
+
 
 What this shows:
 
