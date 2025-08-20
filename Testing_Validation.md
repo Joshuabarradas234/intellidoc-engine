@@ -17,7 +17,7 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
 - **Body:** Selected **raw** JSON format and provided a JSON payload representing the receipt data:
 ## Screenshot 2: Postman Response Success
 With Postman configured, we executed the POST request to the `/receipts` endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
-
+![Postman Response Success](screenshots/Postman-response-succes.png)
 **Example response:**
 ```json
 {
