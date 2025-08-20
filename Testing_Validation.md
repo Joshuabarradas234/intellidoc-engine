@@ -6,7 +6,7 @@
 
 # 🔧 API Testing Setup
 
-## Postman Configuration (URL, Headers, JSON Body)
+## Screenshot 1: Postman Request Configuration
 
 ![Postman Request Setup](screenshots/Postman-request-setup.png)
 
@@ -28,9 +28,7 @@ Required headers including Content-Type: application/json
 JSON body structure with documentName and receiptText fields
 Postman interface ready to send the test request
 Clean workspace setup for API testing
-🚀 API Response Testing
-To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details: Screenshot 2 (Postman Response Success):
-
+Screenshot 2: Postman Response Success
 
 
 With Postman configured, we executed the POST request to the /receipts endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
@@ -57,9 +55,7 @@ Response time of 565ms indicating good performance
 Response size of 537 bytes showing efficient data transfer
 Green status indicator confirming successful API call
 Complete request/response cycle working as expected
-📊 CloudWatch Monitoring Validation
-Screenshot 3 (CloudWatch Metrics):
-
+Screenshot 3: CloudWatch Monitoring Validation
 
 
 The Lambda backend publishes custom metrics to CloudWatch for comprehensive monitoring:
