@@ -21,7 +21,7 @@ It showcases a full-stack AWS solution using **Lambda**, **Textract**, **DynamoD
 
 ## Architecture Diagram
 
-![Architecture Diagram](architecture/intellidoc-architecture.png)
+![Architecture Diagram](screenshots/Architecture%20Diagram.png)
 
 *End-to-end serverless architecture of IntelliDoc Engine.*
 
