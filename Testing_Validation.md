@@ -17,10 +17,10 @@ To test the API's end-to-end functionality, we used Postman to simulate client r
   "documentName": "receipt1.txt",
   "receiptText": "Milk 2.99, Bread 1.49"
 }
-Screenshot 1: Postman Request Setup
+### Screenshot 1: Postman Request Setup
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 
-
-Shows the POST method, target URL, required headers, and example JSON body configured in Postman.
+Shows the POST method, target URL, required headers, and example JSON body configured in Postman.n.
 
 Example POST Request → Response
 With Postman configured, we executed the POST request to the /receipts endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
