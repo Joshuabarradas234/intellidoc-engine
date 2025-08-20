@@ -137,11 +137,7 @@ Advanced UI with previews and analytics.
 Structured data extraction from forms/tables.
 Demo Video
 
-[Demo Video](https://raw.githubusercontent.com/Joshuabarradas234/intellidoc-engine/main/screenshots/Demo.mp4.mov) 
-
-Credits
-
-Author: Joshua Barradas
+https://raw.githubusercontent.com/Joshuabarradas234/intellidoc-engine/main/screenshots/Demo.mp4.mov
 
 GitHub: Joshuabarradas234
 LinkedIn: Joshua Barradas
