@@ -8,6 +8,7 @@
 
 ## Screenshot 1: Postman Request Configuration
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
 - **Headers:** Included `Content-Type: application/json`
