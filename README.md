@@ -136,8 +136,8 @@ Semantic search with vector embeddings.
 Advanced UI with previews and analytics.
 Structured data extraction from forms/tables.
 Demo Video
-
-https://raw.githubusercontent.com/Joshuabarradas234/intellidoc-engine/main/screenshots/Demo.mp4.mov
+Watch the demo
+https://raw.githubusercontent.com/Joshuabarradas234/intellidoc-engine/main/screenshots/Demo.mp4.mov  
 
 GitHub: Joshuabarradas234
 LinkedIn: Joshua Barradas
