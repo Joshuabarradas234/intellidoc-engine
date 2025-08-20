@@ -7,7 +7,7 @@
 # 🔧 API Testing Setup
 
 ## Postman Configuration (URL, Headers, JSON Body)
-
+![Postman Request Setup](screenshots/Postman-request-setup.png)
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
 
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
