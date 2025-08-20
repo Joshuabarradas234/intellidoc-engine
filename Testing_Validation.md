@@ -11,6 +11,11 @@
 ![Postman Request Setup](screenshots/Postman-request-setup.png)
 
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
+Screenshot 2 (Postman Response Success):
+![Postman Response Success](screenshots/Postman-response-succes.png)
+
+Screenshot 3 (CloudWatch Metrics):
+![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png%20.png)
 
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
 - **Headers:** Included `Content-Type: application/json`
