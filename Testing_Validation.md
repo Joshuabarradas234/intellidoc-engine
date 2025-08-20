@@ -11,11 +11,6 @@
 ![Postman Request Setup](screenshots/Postman-request-setup.png)
 
 To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details:
-Screenshot 2 (Postman Response Success):
-![Postman Response Success](screenshots/Postman-response-succes.png)
-
-Screenshot 3 (CloudWatch Metrics):
-![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png%20.png)
 
 - **URL:** `https://45002xf9i1.execute-api.us-east-1.amazonaws.com/prod/receipts`
 - **Headers:** Included `Content-Type: application/json`
@@ -34,7 +29,8 @@ JSON body structure with documentName and receiptText fields
 Postman interface ready to send the test request
 Clean workspace setup for API testing
 🚀 API Response Testing
-Example POST Request → Response
+To test the API's end-to-end functionality, we used Postman to simulate client requests. We configured a new POST request in Postman with the following details: Screenshot 2 (Postman Response Success):
+
 
 
 With Postman configured, we executed the POST request to the /receipts endpoint. The API call succeeded with an HTTP 200 OK response, confirming the request was processed without errors. The response body returned by the API contained a success message and the new receipt ID.
@@ -61,6 +57,33 @@ Response time of 565ms indicating good performance
 Response size of 537 bytes showing efficient data transfer
 Green status indicator confirming successful API call
 Complete request/response cycle working as expected
+📊 CloudWatch Monitoring Validation
+Screenshot 3 (CloudWatch Metrics):
+
+
+
+The Lambda backend publishes custom metrics to CloudWatch for comprehensive monitoring:
+
+InsertSuccess – increments on successful receipt insertions
+InsertError – increments on failed insert attempts
+After our POST request, InsertSuccess increased by 1.04, and InsertError remained 0, confirming the API worked as expected and monitoring captured the event accurately.
+
+Metrics Details:
+
+Metric Name: InsertSuccess
+Count: 1.04 successful operations
+Time Range: 1 day view
+Timestamp: 2025-08-20 08:30 UTC
+Region: us-east-1 (N. Virginia)
+What this shows:
+
+CloudWatch dashboard displaying InsertSuccess metric
+Graph showing successful API call at 08:30 UTC on 2025-08-20
+Metric count of 1.04 confirming the test execution
+Time-series visualization of API performance
+No error metrics, indicating clean execution
+Real-time monitoring capabilities working correctly
+Proper metric collection and visualization in AWS CloudWatch
 🔍 Data Retrieval Testing
 GET/Search Request Example → Response
 After inserting a receipt, we tested retrieval by performing a GET request to the search endpoint:
@@ -97,32 +120,6 @@ Not Found: Returns 404 Not Found for non-existent receipt IDs
 Oversized Payload: Returns 413 Payload Too Large for documents exceeding limits
 These checks confirm the API gracefully handles incorrect or unexpected inputs with appropriate HTTP status codes and error messages.
 
-📊 CloudWatch Monitoring Validation
-Real-time Metrics Tracking
-
-
-The Lambda backend publishes custom metrics to CloudWatch for comprehensive monitoring:
-
-InsertSuccess – increments on successful receipt insertions
-InsertError – increments on failed insert attempts
-After our POST request, InsertSuccess increased by 1.04, and InsertError remained 0, confirming the API worked as expected and monitoring captured the event accurately.
-
-Metrics Details:
-
-Metric Name: InsertSuccess
-Count: 1.04 successful operations
-Time Range: 1 day view
-Timestamp: 2025-08-20 08:30 UTC
-Region: us-east-1 (N. Virginia)
-What this shows:
-
-CloudWatch dashboard displaying InsertSuccess metric
-Graph showing successful API call at 08:30 UTC on 2025-08-20
-Metric count of 1.04 confirming the test execution
-Time-series visualization of API performance
-No error metrics, indicating clean execution
-Real-time monitoring capabilities working correctly
-Proper metric collection and visualization in AWS CloudWatch
 ✅ Test Results Summary
 🎯 Successful Validations
 1. API Connectivity
