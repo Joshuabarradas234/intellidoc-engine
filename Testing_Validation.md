@@ -88,7 +88,7 @@ After our POST request, InsertSuccess increased by 1.04, and InsertError remaine
 Metrics Details:
 
 ### Screenshot 3: CloudWatch Metrics After Test
-![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png%20.png)
+![CloudWatch Insert Success](screenshots/Cloudwatch-insertsucces.png .png)
 Count: 1.04 successful operations
 Time Range: 1 day view
 Timestamp: 2025-08-20 08:30 UTC
