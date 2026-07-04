@@ -1,24 +1,35 @@
+[DECISION_RECORD (1).md](https://github.com/user-attachments/files/29658203/DECISION_RECORD.1.md)
 # Decision Record — IntelliDoc Engine
 
-> **Note on scope (read first).** The system as built and deployed is a
-> **receipt / invoice processing pipeline**: Amazon Textract *AnalyzeExpense*
-> extracts vendor, date, totals and line items, which are stored in DynamoDB and
-> indexed in OpenSearch for search (see `Backend Architecture Deep Dive.md`, the
-> Lambda source in `src/`, and the screenshots). The "legal document" customer
-> scenario below was the original *design brief* used to reason about the
-> architecture — the same serverless pattern (Textract → DynamoDB → OpenSearch,
-> behind API Gateway + Cognito) generalises from receipts to broader document
-> types, but the deployed, evidenced implementation is the receipt pipeline.
-> The customer is illustrative, not a real client.
+## ⚠️ Read first: what is real vs. what is a design study
+
+This repository contains **two things**, and it's important not to confuse them:
+
+**1. What was actually built and deployed (real):**
+A **receipt / invoice processing pipeline** in **AWS `us-east-1`**. Amazon
+Textract *AnalyzeExpense* extracts vendor, date, totals and line items; records
+are stored in **DynamoDB** and indexed in **OpenSearch** for search, behind
+**API Gateway + Cognito**. This is evidenced by the Lambda source in `src/`, the
+Terraform in `terraform/`, the unit tests, the CI runs, the `screenshots/`, and
+the demo video. **This is the actual project.** See the main `README.md`.
+
+**2. This document — an architecture design study (hypothetical):**
+Everything **below** this header is a **design exercise**. It explores the same
+serverless document-processing *pattern* (Textract → DynamoDB → OpenSearch behind
+API Gateway + Cognito) scaled up to a larger, richer scenario — a fictional UK
+legal firm processing 10,000+ documents/month. The customer, the requirements,
+the UK/`eu-west-2` region, the £ budget and all figures are **illustrative** and
+were used to reason about architecture trade-offs and cost at scale. **None of it
+describes a real client or a real deployment.**
+
+Why include a hypothetical? Because the interesting Solutions-Architect work is
+the *reasoning* — why Textract over Google Vision, why OpenSearch over RDS, why
+Lambda over ECS, and how the design and cost behave at 10× volume. The receipt
+pipeline proves the pattern works; this study explores where the pattern goes.
 
 ---
 
-**Project:** IntelliDoc Engine — AI-Powered Serverless Document Processing  
-**Customer (Fictional):** ClearPath Legal Services — UK legal firm processing 10,000+ documents/month  
-**Author:** Joshua Barradas  
-**Date:** May 2026  
-
----
+*(Design study begins below.)*
 
 ## 1. Customer & Context
 
