@@ -1,13 +1,15 @@
+[README (1).md](https://github.com/user-attachments/files/29657861/README.1.md)
+
 # IntelliDoc Engine — Serverless Receipt Processing on AWS
 
-[![CI](https://github.com/Joshuabarradas234/intellidoc-engine/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Joshuabarradas234/intellidoc-engine/actions/workflows/ci.yml)
+[![CI](https://github.com/Joshuabarradas234/IntelliDoc2/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Joshuabarradas234/IntelliDoc2/actions/workflows/ci.yml)
 
 A serverless pipeline that turns uploaded receipts/invoices into structured,
 searchable data. A receipt is sent to the API, **Amazon Textract (AnalyzeExpense)**
 extracts the vendor, date, totals and line items, the structured record is stored
 in **DynamoDB**, and the text is indexed in **OpenSearch** for full-text search —
 all behind an **API Gateway** REST API authenticated with **Cognito**. Region:
-`eu-west-2` (London).
+`us-east-1` (N. Virginia).
 
 > **What this repo is:** the Infrastructure-as-Code (Terraform) and Lambda source
 > for a system I designed and deployed to AWS. The `screenshots/` and `evidence/`
@@ -15,10 +17,11 @@ all behind an **API Gateway** REST API authenticated with **Cognito**. Region:
 > design is illustrative, not a real client.
 
 ## Demo
-A 20-second walkthrough of the pipeline: submitting a receipt via the API,
+
+A short walkthrough of the deployed pipeline: submitting a receipt via the API,
 the record landing in DynamoDB, and CloudWatch metrics/alarms firing.
 
-https://github.com/user-attachments/assets/d86a2b77-f042-42a2-b7a1-fde6b32008b1
+https://github.com/user-attachments/assets/9d374ff3-df69-47f0-8040-7a73a4e56c2d
 
 
 ## Architecture
@@ -76,7 +79,8 @@ pytest tests/ -q      # 23 tests
 
 ## CI
 
-GitHub Actions runs the unit tests and `terraform validate` + `terraform fmt` on every push (`.github/workflows/ci.yml`).
+GitHub Actions runs the unit tests and `terraform validate` + `terraform fmt`
+on every push (`.github/workflows/ci.yml`).
 
 ## Deploy
 
@@ -85,19 +89,19 @@ Everything is Terraform:
 ```bash
 cd terraform
 terraform init
-terraform apply    # region defaults to eu-west-2
+terraform apply    # region defaults to us-east-1
 ```
 
 Terraform packages the three Lambdas, provisions DynamoDB, OpenSearch, the
 Cognito user pool, API Gateway with a Cognito authorizer, the KMS key, and the
 CloudWatch alarm — and outputs the API base URL.
 
-## Security & compliance
+## Security
 
 - **Cognito** user pools with optional MFA and a strong password policy
 - **Least-privilege IAM** — PostReceipt writes DynamoDB + calls Textract; Get/Search roles are read-only
 - **KMS encryption at rest** across DynamoDB, S3 and OpenSearch; S3 public access fully blocked
-- **UK data residency** — everything in `eu-west-2`
+- **Single-region deployment** in `us-east-1` (N. Virginia)
 - **No PII in logs**; every request traced with X-Ray
 
 ## Evidence
