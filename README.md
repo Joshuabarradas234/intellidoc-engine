@@ -15,7 +15,6 @@ all behind an **API Gateway** REST API authenticated with **Cognito**. Region:
 > design is illustrative, not a real client.
 
 ## Demo
-
 A 20-second walkthrough of the pipeline: submitting a receipt via the API,
 the record landing in DynamoDB, and CloudWatch metrics/alarms firing.
 
