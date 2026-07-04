@@ -14,6 +14,10 @@ all behind an **API Gateway** REST API authenticated with **Cognito**. Region:
 > folders show the deployed resources running. The scenario used to frame the
 > design is illustrative, not a real client.
 
+
+https://github.com/user-attachments/assets/d86a2b77-f042-42a2-b7a1-fde6b32008b1
+
+
 ## Architecture
 
 ```
