@@ -19,13 +19,7 @@ serverless document-processing *pattern* (Textract → DynamoDB → OpenSearch b
 API Gateway + Cognito) scaled up to a larger, richer scenario — a fictional UK
 legal firm processing 10,000+ documents/month. The customer, the requirements,
 the UK/`eu-west-2` region, the £ budget and all figures are **illustrative** and
-were used to reason about architecture trade-offs and cost at scale. **None of it
-describes a real client or a real deployment.**
-
-Why include a hypothetical? Because the interesting Solutions-Architect work is
-the *reasoning* — why Textract over Google Vision, why OpenSearch over RDS, why
-Lambda over ECS, and how the design and cost behave at 10× volume. The receipt
-pipeline proves the pattern works; this study explores where the pattern goes.
+were used to reason about architecture trade-offs and cost at scale.
 
 ---
 
